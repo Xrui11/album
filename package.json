@@ -1,0 +1,27 @@
+{
+  "name": "相册",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm tauri:dev",
+    "build": "pnpm tauri:build",
+    "web:dev": "vite dev",
+    "web:build": "tsc && vite build",
+    "web:preview": "vite preview",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build"
+  },
+  "dependencies": {
+    "vue": "^3.2.37",
+    "@tauri-apps/api": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.10",
+    "@vitejs/plugin-vue": "^3.0.1",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.2",
+    "vue-tsc": "^0.40.0",
+    "@tauri-apps/cli": "^1.1.0"
+  }
+}
