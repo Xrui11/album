@@ -14,7 +14,7 @@
   -webkit-text-size-adjust: 100%;
 }
 
-.container {
+.cotainer {
   margin: 0;
   padding-top: 10vh;
   display: flex;
@@ -78,10 +78,6 @@ button:hover {
 input,
 button {
   outline: none;
-}
-
-#greet-input {
-  margin-right: 5px;
 }
 
 @media (prefers-color-scheme: dark) {
