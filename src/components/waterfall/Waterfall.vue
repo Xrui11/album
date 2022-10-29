@@ -1,11 +1,12 @@
 <script lang="ts">
-import { defineComponent, render } from 'vue';
-import type { ImageType } from './waterfall';
+import { defineComponent } from 'vue';
+import type { ImageType, ColumnType } from './waterfall';
 import { Waterfall } from './waterfall';
 
 export default defineComponent({
   data() {
     const images: ImageType[] = [];
+
     return {
       images,
     };
@@ -29,9 +30,8 @@ export default defineComponent({
         images,
       });
 
-      const renderImages = await waterfall.getRenderImages();
       // 设置图片
-      this.images = renderImages;
+      this.images = await waterfall.getRenderImages();
     },
   },
 });
@@ -56,7 +56,6 @@ export default defineComponent({
 <style scoped>
 .content {
   width: 100%;
-  height: 2000px;
   position: relative;
 }
 

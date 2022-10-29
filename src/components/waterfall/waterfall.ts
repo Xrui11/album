@@ -25,6 +25,11 @@ export type ImageType = {
   y?: number;
 };
 
+export type ColumnType = {
+  x: number;
+  y: number;
+};
+
 export class Waterfall {
   minWidth: number;
   container: HTMLElement;
@@ -39,7 +44,7 @@ export class Waterfall {
   }
 
   // 获取渲染图片列表
-  async getRenderImages(): Promise<ImageType[]> {
+  async getRenderImages(): Promise<images> {
     const result: ImageType[] = [];
     const { width, columns } = this.getColumns();
     const imageWidth = width - this.margin;
@@ -106,7 +111,7 @@ export class Waterfall {
     const containerWidth = this.getContainerWidth();
     const count = Math.floor(containerWidth / this.minWidth);
     let width = containerWidth / count;
-    let columns = [];
+    let columns: ColumnType[] = [];
     for (let i = 0; i < count; i++) {
       columns.push({ x: i * width, y: 0 });
     }
