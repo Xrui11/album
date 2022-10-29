@@ -10,20 +10,29 @@ export default defineComponent({
       images,
     };
   },
-  async mounted() {
-    const images: any = [];
-    for (let i = 1; i <= 22; i++) {
-      images.push({ src: `/src/assets/images/${i}.jpg` });
-    }
+  mounted() {
+    this.waterfall();
+    window.addEventListener('resize', this.waterfall);
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.waterfall);
+  },
+  methods: {
+    async waterfall() {
+      const images: any = [];
+      for (let i = 1; i <= 22; i++) {
+        images.push({ src: `/src/assets/images/${i}.jpg` });
+      }
 
-    const waterfall = new Waterfall({
-      container: document.getElementsByClassName('content')[0] as HTMLElement,
-      images,
-    });
+      const waterfall = new Waterfall({
+        container: document.getElementsByClassName('content')[0] as HTMLElement,
+        images,
+      });
 
-    const renderImages = await waterfall.getRenderImages();
-    // 设置图片
-    this.images = renderImages;
+      const renderImages = await waterfall.getRenderImages();
+      // 设置图片
+      this.images = renderImages;
+    },
   },
 });
 </script>
@@ -33,9 +42,13 @@ export default defineComponent({
     <div
       class="img-wrap"
       v-for="image in images"
-      :style="`top: ${image.y}px; left: ${image.x}px`"
+      :style="`top: ${image.y}px; left: ${image.x}px;`"
     >
-      <img :src="image.src" alt="这里是一张图片" />
+      <img
+        :src="image.src"
+        :style="`width: ${image.width}px; height: ${image.height}px`"
+        alt="这里是一张图片"
+      />
     </div>
   </div>
 </template>
@@ -48,12 +61,10 @@ export default defineComponent({
 }
 
 .img-wrap {
-  padding: 10px;
   position: absolute;
 }
 
 img {
-  width: 240px;
-  border-radius: 10%;
+  border-radius: 10px;
 }
 </style>

@@ -4,6 +4,8 @@ export type WaterfallOption = {
   images: ImageType[];
   // 最小图片宽度
   minWidth?: number;
+  // 边距
+  margin?: number;
 };
 
 export type ImageType = {
@@ -27,24 +29,28 @@ export class Waterfall {
   minWidth: number;
   container: HTMLElement;
   images: ImageType[];
+  margin: number;
 
   constructor(options: WaterfallOption) {
     this.container = options.container;
     this.images = options.images || [];
     this.minWidth = options.minWidth || 200;
+    this.margin = options.margin || 10;
   }
 
   // 获取渲染图片列表
   async getRenderImages(): Promise<ImageType[]> {
     const result: ImageType[] = [];
     const { width, columns } = this.getColumns();
+    const imageWidth = width - this.margin;
 
     for (const image of this.images) {
       const renderImage = await this.getImageSize(image);
+      renderImage.width = imageWidth;
       // 计算好渲染的高度
       renderImage.height =
         (renderImage.originHeight as number) *
-        ((renderImage.originWidth as number) / width);
+        (imageWidth / (renderImage.originWidth as number));
 
       let minY = 0,
         minIdx = 0;
@@ -65,7 +71,8 @@ export class Waterfall {
       }
 
       renderImage.x = columns[minIdx].x;
-      renderImage.y = minY;
+      renderImage.y = columns[minIdx].y;
+      columns[minIdx].y = minY + this.margin;
 
       result.push(renderImage);
     }
