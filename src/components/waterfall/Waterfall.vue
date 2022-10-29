@@ -1,65 +1,40 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
-
-const images: any = [];
-for (let i = 1; i <= 22; i++) {
-  images.push({ src: `../../assets/images/${i}.jpg` });
-}
+import { defineComponent, render } from 'vue';
+import type { ImageType } from './waterfall';
+import { Waterfall } from './waterfall';
 
 export default defineComponent({
   data() {
+    const images: ImageType[] = [];
     return {
       images,
     };
   },
-  mounted: () => {
-    //1.获取主容器的宽度
-    let content: any = document.getElementsByClassName('content')[0];
-    let contentWidth: any = content.offsetWidth;
-    console.log(contentWidth);
-
-    //2.获取单个图片的宽度
-    let imgs = content.children;
-    let imgsWidth: any = imgs[0].offsetWidth;
-    console.log(imgsWidth);
-
-    //3.第一行可以排列多少照片
-    let nums: any = Math.floor(contentWidth / imgsWidth);
-    console.log(nums);
-
-    //4.收集第一排的所有高度
-    let arrHeight: any = [];
-    for (let i = 0; i < imgs.length; i++) {
-      if (i < nums) {
-        //这里是第一排的图片高度
-        arrHeight.push(imgs[i].offsetHeight);
-      } else {
-        //创建下一排第一个元素的对象
-        let obj = {
-          minH: arrHeight[0],
-          minImg: 0,
-        };
-        for (let j = 0; j < arrHeight.length; j++) {
-          if (arrHeight[j] < obj.minH) {
-            obj.minH = arrHeight[j];
-            obj.minImg = j;
-          }
-        }
-        console.log(obj);
-        imgs[i].style.position = 'absolute';
-        imgs[i].style.left = imgs[obj.minImg].offsetLeft + 'px';
-        imgs[i].style.top = obj.minH + 'px';
-        arrHeight[obj.minImg] = arrHeight[obj.minImg] + imgs[i].offsetHeight;
-      }
+  async mounted() {
+    const images: any = [];
+    for (let i = 1; i <= 22; i++) {
+      images.push({ src: `/src/assets/images/${i}.jpg` });
     }
-    console.log(arrHeight);
+
+    const waterfall = new Waterfall({
+      container: document.getElementsByClassName('content')[0] as HTMLElement,
+      images,
+    });
+
+    const renderImages = await waterfall.getRenderImages();
+    // 设置图片
+    this.images = renderImages;
   },
 });
 </script>
 
 <template>
   <div class="content">
-    <div class="img-wrap" v-for="image in images">
+    <div
+      class="img-wrap"
+      v-for="image in images"
+      :style="`top: ${image.y}px; left: ${image.x}px`"
+    >
       <img :src="image.src" alt="这里是一张图片" />
     </div>
   </div>
@@ -68,14 +43,13 @@ export default defineComponent({
 <style scoped>
 .content {
   width: 100%;
-  height: 200px;
-  left: 50%;
-  margin-left: 110px;
+  height: 2000px;
+  position: relative;
 }
 
 .img-wrap {
-  float: left;
   padding: 10px;
+  position: absolute;
 }
 
 img {
