@@ -7,7 +7,7 @@
     "dev": "pnpm tauri:dev",
     "build": "pnpm tauri:build",
     "web:dev": "vite dev",
-    "web:build": "tsc && vite build",
+    "web:build": "vue-tsc --noEmit && vite build",
     "web:preview": "vite preview",
     "tauri:dev": "RUST_BACKTRACE=1 tauri dev",
     "tauri:build": "tauri build"
