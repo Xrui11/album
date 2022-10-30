@@ -5,12 +5,12 @@ import { ImageView } from './views/image';
 
 const routes = [
   {
-    path: '/empty',
+    path: '/',
     name: 'empty',
     component: EmptyView,
   },
   {
-    path: '/',
+    path: '/image',
     name: 'image',
     component: ImageView,
   },

@@ -1,50 +1,62 @@
+use glob::glob;
+use imagesize::size;
 use std::path;
 
 use crate::service::{get_file_list, is_image};
+use serde_with::serde_as;
 use tauri::{command, AppHandle, Wry};
 
 #[serde_as]
 #[derive(serde::Serialize)]
-struct ImageFolderFile {
-    // 是否为目录
-    is_dir: bool,
+pub struct ImageFile {
     // 图片本地地址
-    path: String,
+    src: String,
     // 图片名称
     name: String,
     // 图片宽度
-    width: i16,
+    width: usize,
     // 图片高度
-    height: i16,
-    // 图片列表
-    images: Vec<String>,
-}
-
-#[serde_as]
-#[derive(serde::Serialize)]
-struct ImageFolder {
-    name: String,
-    files: Vec<ImageFolderFile>,
+    height: usize,
 }
 
 #[command]
-pub async fn get_folder_images<R: Runtime>(
-    window: tauri::Window<R>,
-    path_str: &str,
-) -> Result<(), String> {
-    let file_path = std::path::PathBuf::from(path_str);
+pub fn get_folder_images(dir: &str) -> Result<Vec<ImageFile>, String> {
+    let file_path = std::path::PathBuf::from(dir);
     let file_name = String::from(file_path.file_name().unwrap().to_str().unwrap());
 
-    let mut folderInfo = ImageFolder {
-        name: file_name,
-        files: vec![],
-    };
+    let mut files: Vec<ImageFile> = vec![];
 
-    for entry in file_path.read_dir() {
-        if entry {
-            let mut file2 = vec![];
+    let extPatterns = [
+        "/**/*.jpeg",
+        "/**/*.jpg",
+        "/**/*.png",
+        "/**/*.webp",
+        "/**/*.gif",
+        "/**/*.bmp",
+    ];
+
+    for ext in extPatterns {
+        let mut pattern = dir.to_owned();
+        pattern.push_str(ext);
+        for entry in glob(&pattern).expect("Failed to read glob pattern") {
+            match entry {
+                Ok(path) => {
+                    let str = path.display().to_string();
+                    let (width, height) = match size(&str) {
+                        Ok(dim) => (dim.width, dim.height),
+                        Err(why) => panic!("Error getting dimensions: {:?}", why),
+                    };
+                    files.push(ImageFile {
+                        src: str,
+                        name: String::from(path.file_name().unwrap().to_str().unwrap()),
+                        width: width,
+                        height: height,
+                    })
+                }
+                Err(e) => println!("{:?}", e),
+            }
         }
     }
 
-    Ok(folderInfo)
+    Ok(files)
 }

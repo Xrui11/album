@@ -3,17 +3,19 @@
     windows_subsystem = "windows"
 )]
 
-mod infra;
-mod model;
+mod error;
 mod port;
+mod prelude;
 mod service;
 
-#[tokio::main]
-async fn main() -> Result<()> {
+use crate::port::get_folder_images;
+// mod infra;
+// mod model;
+
+// #[tokio::main]
+fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![])
+        .invoke_handler(tauri::generate_handler![get_folder_images])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
-
-    Ok(())
 }

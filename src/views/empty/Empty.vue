@@ -5,7 +5,9 @@ import { DialogService } from '../../services/dialog-service';
 export default defineComponent({
   methods: {
     async chooseFolder() {
-      await DialogService.selectImageDir();
+      const dir: string = await DialogService.selectImageDir();
+      window.localStorage.setItem('folder', dir);
+      this.$router.push('/image');
     },
   },
 });
@@ -16,3 +18,12 @@ export default defineComponent({
     <button type="button" @click="chooseFolder()">选择图片目录</button>
   </div>
 </template>
+
+<style scoped>
+.empty-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+</style>

@@ -6,4 +6,5 @@ pub fn is_image(s: &str) -> bool {
             return true;
         }
     }
+    return false;
 }
