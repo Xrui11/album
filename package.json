@@ -1,5 +1,5 @@
 {
-  "name": "相册",
+  "name": "album",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,12 +9,13 @@
     "web:dev": "vite dev",
     "web:build": "tsc && vite build",
     "web:preview": "vite preview",
-    "tauri:dev": "tauri dev",
+    "tauri:dev": "RUST_BACKTRACE=1 tauri dev",
     "tauri:build": "tauri build"
   },
   "dependencies": {
     "@tauri-apps/api": "^1.1.0",
     "naive-ui": "^2.33.5",
+    "vfonts": "^0.0.3",
     "vue": "^3.2.37",
     "vue-router": "^4.1.6"
   },

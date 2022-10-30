@@ -1,11 +1,7 @@
-<script setup lang="ts">
-import { Waterfall } from './components/waterfall';
-</script>
+<script lang="ts"></script>
 
 <template>
-  <div class="container">
-    <Waterfall />
-  </div>
+  <router-view></router-view>
 </template>
 
 <style scoped></style>

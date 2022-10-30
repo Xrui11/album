@@ -5,11 +5,19 @@ import { Waterfall } from './waterfall';
 
 export default defineComponent({
   data() {
-    const images: ImageType[] = [];
-
+    const renderImages: ImageType[] = [];
     return {
-      images,
+      renderImages,
     };
+  },
+  props: ['images'],
+  watch: {
+    images: {
+      handler() {
+        this.waterfall();
+      },
+      deep: true,
+    },
   },
   mounted() {
     this.waterfall();
@@ -20,18 +28,13 @@ export default defineComponent({
   },
   methods: {
     async waterfall() {
-      const images: any = [];
-      for (let i = 1; i <= 22; i++) {
-        images.push({ src: `/src/assets/images/${i}.jpg` });
-      }
-
       const waterfall = new Waterfall({
         container: document.getElementsByClassName('content')[0] as HTMLElement,
-        images,
+        images: this.$props.images,
       });
 
       // 设置图片
-      this.images = await waterfall.getRenderImages();
+      this.renderImages = await waterfall.getRenderImages();
     },
   },
 });
@@ -41,7 +44,7 @@ export default defineComponent({
   <div class="content">
     <div
       class="img-wrap"
-      v-for="image in images"
+      v-for="image in renderImages"
       :style="`top: ${image.y}px; left: ${image.x}px;`"
     >
       <img

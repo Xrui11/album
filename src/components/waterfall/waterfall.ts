@@ -44,7 +44,7 @@ export class Waterfall {
   }
 
   // 获取渲染图片列表
-  async getRenderImages(): Promise<images> {
+  async getRenderImages(): Promise<ImageType[]> {
     const result: ImageType[] = [];
     const { width, columns } = this.getColumns();
     const imageWidth = width - this.margin;
@@ -95,6 +95,11 @@ export class Waterfall {
     return new Promise(resolve => {
       const img = new Image();
       img.src = _image.src;
+
+      if (_image.width) {
+        return resolve(_image);
+      }
+
       img.onload = () => {
         resolve({
           src: img.src,
