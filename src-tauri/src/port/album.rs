@@ -14,9 +14,9 @@ pub struct ImageFile {
     // 图片名称
     name: String,
     // 图片宽度
-    width: usize,
+    originWidth: usize,
     // 图片高度
-    height: usize,
+    originHeight: usize,
 }
 
 #[command]
@@ -49,8 +49,8 @@ pub fn get_folder_images(dir: &str) -> Result<Vec<ImageFile>, String> {
                     files.push(ImageFile {
                         src: str,
                         name: String::from(path.file_name().unwrap().to_str().unwrap()),
-                        width: width,
-                        height: height,
+                        originWidth: width,
+                        originHeight: height,
                     })
                 }
                 Err(e) => println!("{:?}", e),

@@ -3,6 +3,11 @@ import { defineComponent } from 'vue';
 import { DialogService } from '../../services/dialog-service';
 
 export default defineComponent({
+  beforeMount() {
+    if (window.localStorage.getItem('folder')) {
+      this.$router.push('/image');
+    }
+  },
   methods: {
     async chooseFolder() {
       const dir: string = await DialogService.selectImageDir();
