@@ -30,7 +30,7 @@ async function updater() {
 
   const updateData = {
     version: tag.name,
-    notes: updatelog(tag.name), // use UPDATE_LOG.md
+    notes: `${tag.name} 已经发布。`, // use UPDATE_LOG.md
     pub_date: new Date().toISOString(),
     platforms: {
       win64: { signature: '', url: '' }, // compatible with older formats
