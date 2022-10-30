@@ -1,2 +1,2 @@
-import EmptyView from './empty.vue';
+import EmptyView from './Empty.vue';
 export { EmptyView };
