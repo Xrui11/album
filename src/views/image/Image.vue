@@ -19,6 +19,7 @@ export default defineComponent({
         images.push({ src: `/src/assets/images/${i}.jpg` });
       }
       this.images = images;
+      return;
     }
     const res: any = await ImageService.getImages(dir as string);
     this.images = res.map((img: ImageType) => {

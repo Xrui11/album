@@ -10,8 +10,12 @@ export default defineComponent({
   },
   methods: {
     async chooseFolder() {
-      const dir: string = await DialogService.selectImageDir();
-      window.localStorage.setItem('folder', dir);
+      try {
+        const dir: string = await DialogService.selectImageDir();
+        window.localStorage.setItem('folder', dir);
+      } catch (err) {
+        console.error(err);
+      }
       this.$router.push('/image');
     },
   },

@@ -11,6 +11,14 @@ export default defineComponent({
     };
   },
   props: ['images'],
+  watch: {
+    images: {
+      handler() {
+        this.waterfall();
+      },
+      deep: true,
+    },
+  },
   mounted() {
     this.waterfall();
     window.addEventListener('resize', this.waterfall);
