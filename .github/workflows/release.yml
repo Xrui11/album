@@ -99,8 +99,15 @@ jobs:
     needs: [create-release, build-tauri]
 
     steps:
+      - uses: pnpm/action-setup@v2.2.4
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
       - uses: actions/checkout@v2
-      - run: pnpm
+      - run: pnpm install --no-frozen-lockfile
       - run: pnpm updater
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
