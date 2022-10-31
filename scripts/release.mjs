@@ -34,7 +34,7 @@ async function release() {
     JSON.stringify(tauriJson, null, 2),
   );
 
-  execSync('git add ./package.json');
+  execSync('git add ./package.json ./src-tauri/tauri.conf.json');
   execSync(`git commit -m "v${nextVersion}"`);
   execSync(`git tag -a v${nextVersion} -m "v${nextVersion}"`);
   execSync(`git push`);
