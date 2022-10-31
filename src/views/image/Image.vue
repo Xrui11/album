@@ -12,7 +12,7 @@ export default defineComponent({
     };
   },
   async mounted() {
-    const dir = window.localStorage.getItem('folder');
+    let dir = this.$route.query.dir;
     if (!dir) {
       const images: any = [];
       for (let i = 1; i <= 22; i++) {
@@ -21,6 +21,7 @@ export default defineComponent({
       this.images = images;
       return;
     }
+    dir = decodeURIComponent(dir as string);
     const res: any = await ImageService.getImages(dir as string);
     this.images = res.map((img: ImageType) => {
       img.src = convertFileSrc(img.src);

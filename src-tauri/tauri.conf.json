@@ -7,7 +7,7 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "album",
+    "productName": "Rui相册",
     "version": "1.0.15"
   },
   "tauri": {
@@ -17,9 +17,7 @@
     "updater": {
       "active": true,
       "dialog": true,
-      "endpoints": [
-        "https://rui-lucky.github.io/album/install.json"
-      ],
+      "endpoints": ["https://rui-lucky.github.io/album/install.json"],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEZENDQwRkFFQkFCNEZDMDIKUldRQy9MUzZyZzlFL2VsK3NGbTNjUW5meHdhS0tMcE9xaUFZa1YrY3Fld2hvR0tZdFArcWZHSlQK"
     },
     "bundle": {
@@ -63,7 +61,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "Rui | 图阅",
+        "title": "Rui相册",
         "width": 800
       }
     ]

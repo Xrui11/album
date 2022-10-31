@@ -3,20 +3,20 @@ import { defineComponent } from 'vue';
 import { DialogService } from '../../services/dialog-service';
 
 export default defineComponent({
-  beforeMount() {
-    if (window.localStorage.getItem('folder')) {
-      this.$router.push('/image');
-    }
-  },
   methods: {
     async chooseFolder() {
+      let dir: string = '';
       try {
-        const dir: string = await DialogService.selectImageDir();
-        window.localStorage.setItem('folder', dir);
+        dir = await DialogService.selectImageDir();
       } catch (err) {
         console.error(err);
       }
-      this.$router.push('/image');
+      if (!dir) return;
+
+      this.$router.push({
+        path: '/image',
+        query: { folder: encodeURIComponent(dir) },
+      });
     },
   },
 });
@@ -33,6 +33,6 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: calc(100vh - 20px);
 }
 </style>
