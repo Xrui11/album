@@ -1,5 +1,5 @@
 [package]
-name = "Rui相册"
+name = "rui-album"
 version = "1.0.0"
 description = "一款图片查看器"
 authors = ["you"]

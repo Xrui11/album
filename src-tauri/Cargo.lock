@@ -3,21 +3,6 @@
 version = 3
 
 [[package]]
-name = "Rui相册"
-version = "1.0.0"
-dependencies = [
- "glob",
- "imagesize",
- "serde",
- "serde_json",
- "serde_with 2.0.1",
- "serde_with_macros 2.0.1",
- "tauri",
- "tauri-build",
- "thiserror",
-]
-
-[[package]]
 name = "adler"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2331,6 +2316,21 @@ dependencies = [
  "wasm-bindgen-futures",
  "web-sys",
  "windows 0.37.0",
+]
+
+[[package]]
+name = "rui-album"
+version = "1.0.0"
+dependencies = [
+ "glob",
+ "imagesize",
+ "serde",
+ "serde_json",
+ "serde_with 2.0.1",
+ "serde_with_macros 2.0.1",
+ "tauri",
+ "tauri-build",
+ "thiserror",
 ]
 
 [[package]]
