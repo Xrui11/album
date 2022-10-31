@@ -7,6 +7,7 @@ const require = createRequire(import.meta.url);
 async function release() {
   const flag = process.argv[2] ?? 'patch';
   const packageJson = require('../package.json');
+  const tauriJson = require('../src-tauri/tauri.conf.json');
   let [a, b, c] = packageJson.version.split('.').map(Number);
 
   if (flag === 'major') {
@@ -25,10 +26,13 @@ async function release() {
 
   const nextVersion = `${a}.${b}.${c}`;
   packageJson.version = nextVersion;
-
-  const nextTag = `v${nextVersion}`;
+  tauriJson.package.version = nextVersion;
 
   fs.writeFileSync('./package.json', JSON.stringify(packageJson, null, 2));
+  fs.writeFileSync(
+    './src-tauri/tauri.conf.json',
+    JSON.stringify(tauriJson, null, 2),
+  );
 
   execSync('git add ./package.json');
   execSync(`git commit -m "v${nextVersion}"`);
