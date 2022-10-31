@@ -28,6 +28,8 @@ async function updater() {
     tag: tag.name,
   });
 
+  console.log(`Release Data: ${JSON.stringify(latestRelease, null, 2)}`);
+
   const updateData = {
     version: tag.name,
     notes: `${tag.name} 已经发布。`, // use UPDATE_LOG.md
@@ -78,9 +80,12 @@ async function updater() {
   });
   await Promise.allSettled(promises);
 
+  console.log(`Update Data ${JSON.stringify(updateData, null, 2)}`);
+
   if (!fs.existsSync('updater')) {
     fs.mkdirSync('updater');
   }
+
   fs.writeFileSync(
     './updater/install.json',
     JSON.stringify(updateData, null, 2),
