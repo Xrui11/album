@@ -1,0 +1,35 @@
+{
+  "version": "v1.0.19",
+  "notes": "v1.0.19 已经发布。",
+  "pub_date": "2022-10-31T16:25:50.080Z",
+  "platforms": {
+    "win64": {
+      "signature": "",
+      "url": ""
+    },
+    "linux": {
+      "signature": "",
+      "url": ""
+    },
+    "darwin": {
+      "signature": "",
+      "url": "https://github.com/rui-lucky/album/releases/download/v1.0.19/rui-album.app.tar.gz"
+    },
+    "darwin-aarch64": {
+      "signature": "",
+      "url": "https://github.com/rui-lucky/album/releases/download/v1.0.19/rui-album.app.tar.gz"
+    },
+    "darwin-x86_64": {
+      "signature": "",
+      "url": "https://github.com/rui-lucky/album/releases/download/v1.0.19/rui-album.app.tar.gz"
+    },
+    "linux-x86_64": {
+      "signature": "",
+      "url": ""
+    },
+    "windows-x86_64": {
+      "signature": "",
+      "url": ""
+    }
+  }
+}
