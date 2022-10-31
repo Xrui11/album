@@ -18,7 +18,7 @@ serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_with= { version = "2.0.1", features = ["json"] }
 serde_with_macros = "2"
-tauri = { version = "1.1", features = ["api-all", "updater"] }
+tauri = { version = "1.1", features = ["api-all"] }
 # sqlite = "0.27.3"
 # ts-rs = { version = "6", features = ["format"] }
 # tokio = { version = "1.21.2", features = ["full"] }
